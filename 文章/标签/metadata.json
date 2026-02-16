@@ -1,0 +1,28 @@
+{
+  "tags": [
+    {
+      "id": "tag_1770967528810",
+      "name": "全部",
+      "description": "用户创建的标签",
+      "folder": "全部",
+      "hidden": false,
+      "articles": [
+        {
+          "id": "art_1770967528891",
+          "title": "测试",
+          "folder": "测试",
+          "createTime": "2026-02-13",
+          "author": "F_F_M_YC"
+        }
+      ]
+    },
+    {
+      "id": "tag_1771052673146",
+      "name": "w**专辑",
+      "description": "关于w**的专辑",
+      "folder": "w--专辑",
+      "hidden": true,
+      "articles": []
+    }
+  ]
+}

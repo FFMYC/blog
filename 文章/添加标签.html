@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加标签 - F_F_M_YC</title>
+    <link rel="icon" href="../icon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+        body { background-color: #f5f5f5; color: #333; line-height: 1.6; padding: 20px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; color: #38a038; border: 2px solid #ff0000; background: white; border-radius: 5px; cursor: pointer; transition: all 0.3s; text-decoration: none; margin-bottom: 20px; }
+        .back-btn:hover { background: #0000008a; color: white; }
+        .container { max-width: 800px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); padding: 40px; }
+        h1 { color: #2c3e50; margin-bottom: 30px; text-align: center; }
+        .form-group { margin-bottom: 25px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 500; color: #2c3e50; }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 15px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 16px; transition: border-color 0.3s; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #3498db; }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        .form-hint { font-size: 13px; color: #7f8c8d; margin-top: 5px; }
+        .form-actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px; }
+        .auth-section { padding: 40px 0; }
+        .auth-card { background: #f8f9fa; padding: 30px; border-radius: 8px; border: 1px solid #e1e4e8; }
+        .auth-card h2 { color: #2c3e50; margin-bottom: 25px; text-align: center; }
+        .btn { padding: 12px 30px; border-radius: 4px; font-size: 16px; cursor: pointer; border: none; transition: background-color 0.3s; }
+        .btn-primary { background-color: #3498db; color: white; }
+        .btn-primary:hover { background-color: #2980b9; }
+        .btn-secondary { background-color: #f5f5f5; color: #333; }
+        .btn-secondary:hover { background-color: #e8e8e8; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; }
+        .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        .checkbox-group label { cursor: pointer; }
+        .tag-type-indicator { display: inline-block; padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: 500; margin-left: 10px; }
+        .tag-type-visible { background: #3498db; color: white; }
+        .tag-type-hidden { background: #e74c3c; color: white; }
+        .success-info { margin-top: 20px; padding: 15px; background-color: #d4edda; border-radius: 4px; border-left: 4px solid #28a745; display: none; }
+        .success-info h3 { margin-bottom: 10px; color: #28a745; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #eee; }
+        .tab-btn { padding: 12px 24px; background: none; border: none; font-size: 16px; cursor: pointer; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-btn:hover { color: #3498db; }
+        .tab-btn.active { color: #3498db; border-bottom-color: #3498db; font-weight: bold; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tag-list-item { padding: 15px; margin: 10px 0; background: #f8f9fa; border-radius: 8px; cursor: pointer; transition: all 0.3s; border-left: 4px solid #3498db; }
+        .tag-list-item:hover { background: #e9ecef; transform: translateX(5px); }
+        .tag-list-item.selected { background: #d4edda; border-left-color: #28a745; }
+        .tag-list-item.hidden { border-left-color: #e74c3c; }
+        .tag-list-item-name { font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
+        .tag-list-item-meta { font-size: 13px; color: #666; }
+        .delete-btn { background-color: #dc3545; color: white; }
+        .delete-btn:hover { background-color: #c82333; }
+        .delete-warning { padding: 15px; background-color: #fff3cd; border-radius: 4px; border-left: 4px solid #ffc107; margin-bottom: 15px; }
+        .delete-warning h3 { color: #856404; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <a href="标签选择.html" class="back-btn">← 返回标签选择</a>
+    <div class="container">
+        <h1>🏷️ 标签管理</h1>
+        
+        <!-- 选项卡 -->
+        <div class="tabs" id="tabs" style="display: none;">
+            <button class="tab-btn active" data-tab="add">➕ 添加标签</button>
+            <button class="tab-btn" data-tab="delete">🗑️ 删除标签</button>
+        </div>
+        
+        <!-- 登录验证区域 -->
+        <div class="auth-section" id="auth-section">
+            <div class="auth-card">
+                <h2>🔐 身份验证</h2>
+                <div class="form-group">
+                    <label class="form-label">用户名 *</label>
+                    <input type="text" class="form-input" id="auth-username" placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">密码 *</label>
+                    <input type="password" class="form-input" id="auth-password" placeholder="请输入密码">
+                </div>
+                <button type="button" class="btn btn-primary" id="login-btn" style="width: 100%;">登录</button>
+            </div>
+        </div>
+        
+        <!-- 标签表单区域 -->
+        <div class="tag-form-section" id="tag-form-section" style="display: none;">
+            <!-- 添加标签选项卡 -->
+            <div class="tab-content active" id="tab-add">
+                <form id="tag-form">
+                <div class="form-group">
+                    <label class="form-label">标签名称 *</label>
+                    <input type="text" class="form-input" id="tag-name" placeholder="请输入标签名称" required>
+                    <p class="form-hint">标签名称建议 2-20 字符，用于分类文章</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">标签说明 *</label>
+                    <textarea class="form-textarea" id="tag-description" placeholder="请输入标签的说明描述" required></textarea>
+                    <p class="form-hint">简要描述该标签的用途和包含的文章类型</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">标签类型 *</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tag-hidden">
+                        <label for="tag-hidden">隐藏标签</label>
+                    </div>
+                    <p class="form-hint">勾选后，该标签将不会在标签选择页面显示，需要通过网址直接访问</p>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-btn">取消</button>
+                    <button type="submit" class="btn btn-primary" id="submit-btn">创建标签</button>
+                </div>
+            </form>
+            
+            <div class="success-info" id="success-info">
+                <h3>✅ 标签创建成功</h3>
+                <p id="success-message"></p>
+            </div>
+            </div>
+            
+            <!-- 删除标签选项卡 -->
+            <div class="tab-content" id="tab-delete">
+                <div class="delete-warning">
+                    <h3>⚠️ 警告</h3>
+                    <p>删除标签将同时删除该标签下的所有文章，此操作不可恢复！</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">选择要删除的标签</label>
+                    <div id="tags-list"></div>
+                    <p class="form-hint">点击选择要删除的标签，红色边框表示隐藏标签</p>
+                </div>
+                
+                <div class="form-group" id="delete-preview" style="display: none;">
+                    <label class="form-label">标签预览</label>
+                    <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #e74c3c;">
+                        <h3 id="preview-name"></h3>
+                        <p id="preview-description" style="margin-top: 10px; color: #666;"></p>
+                        <p id="preview-count" style="margin-top: 5px; color: #dc3545; font-weight: bold;"></p>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn delete-btn" id="delete-tag-btn">🗑️ 删除选中的标签</button>
+                </div>
+                
+                <div class="success-info" id="delete-success-info" style="background-color: #f8d7da; border-left-color: #dc3545; display: none;">
+                    <h3 style="color: #dc3545; margin-bottom: 10px;">✅ 标签已删除</h3>
+                    <p id="delete-success-message" style="color: #721c24;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let authToken = null;
+        let allTags = [];
+        let selectedTagId = null;
+        
+        // 登录验证
+        document.getElementById('login-btn').addEventListener('click', async function() {
+            const username = document.getElementById('auth-username').value.trim();
+            const password = document.getElementById('auth-password').value;
+            
+            if (!username || !password) {
+                alert('请输入用户名和密码');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/verify-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // 生成Basic Auth令牌
+                    authToken = 'Basic ' + btoa(username + ':' + password);
+                    document.getElementById('auth-section').style.display = 'none';
+                    document.getElementById('tag-form-section').style.display = 'block';
+                    document.getElementById('tabs').style.display = 'flex';
+                    loadTagsList();
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                alert('网络错误，请检查连接');
+                console.error('验证失败:', error);
+            }
+        });
+        
+        document.getElementById('submit-btn').addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('tag-name').value.trim();
+            const description = document.getElementById('tag-description').value.trim();
+            const hidden = document.getElementById('tag-hidden').checked;
+            
+            if (!name) {
+                alert('请输入标签名称');
+                return;
+            }
+            if (!description) {
+                alert('请输入标签说明');
+                return;
+            }
+            
+            const tagData = {
+                name: name,
+                description: description,
+                hidden: hidden
+            };
+            
+            try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (authToken) {
+                    headers['Authorization'] = authToken;
+                }
+                
+                const response = await fetch('/api/save-tag', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(tagData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('success-info').style.display = 'block';
+                    const typeText = hidden ? '隐藏' : '显示';
+                    document.getElementById('success-message').textContent = `标签 "${name}" 创建成功！类型：${typeText}`;
+                    document.getElementById('tag-form').reset();
+                } else {
+                    alert('创建失败：' + result.message);
+                }
+            } catch (error) {
+                alert('网络错误，请检查连接');
+                console.error('保存标签失败:', error);
+            }
+        });
+        
+        document.getElementById('cancel-btn').addEventListener('click', function() {
+            if (confirm('确定要取消创建标签吗？')) {
+                window.location.href = '标签选择.html';
+            }
+        });
+        
+        // 选项卡切换
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+                
+                if (this.dataset.tab === 'delete') {
+                    loadTagsList();
+                }
+            });
+        });
+        
+        // 加载标签列表
+        async function loadTagsList() {
+            try {
+                const response = await fetch('标签/metadata.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    allTags = data.tags || [];
+                    renderTagsList();
+                }
+            } catch (error) {
+                console.error('加载标签失败:', error);
+            }
+        }
+        
+        // 渲染标签列表
+        function renderTagsList() {
+            const container = document.getElementById('tags-list');
+            container.innerHTML = '';
+            
+            if (allTags.length === 0) {
+                container.innerHTML = '<p style="color: #7f8c8d;">暂无标签</p>';
+                return;
+            }
+            
+            allTags.forEach(tag => {
+                const item = document.createElement('div');
+                item.className = 'tag-list-item' + (tag.hidden ? ' hidden' : '');
+                item.dataset.id = tag.id;
+                item.innerHTML = `
+                    <div class="tag-list-item-name">${tag.name}</div>
+                    <div class="tag-list-item-meta">
+                        <span>📝 ${tag.articles ? tag.articles.length : 0} 篇文章</span>
+                        ${tag.hidden ? '<span>🔒 隐藏</span>' : '<span>👁️ 显示</span>'}
+                    </div>
+                `;
+                item.onclick = () => selectTag(tag);
+                container.appendChild(item);
+            });
+        }
+        
+        // 选择标签
+        function selectTag(tag) {
+            selectedTagId = tag.id;
+            
+            document.querySelectorAll('.tag-list-item').forEach(item => {
+                item.classList.remove('selected');
+                if (item.dataset.id === tag.id) {
+                    item.classList.add('selected');
+                }
+            });
+            
+            // 显示预览
+            document.getElementById('delete-preview').style.display = 'block';
+            document.getElementById('preview-name').textContent = tag.name;
+            document.getElementById('preview-description').textContent = tag.description;
+            document.getElementById('preview-count').textContent = `包含 ${tag.articles ? tag.articles.length : 0} 篇文章，删除将同时删除这些文章！`;
+        }
+        
+        // 删除标签
+        document.getElementById('delete-tag-btn').addEventListener('click', async function() {
+            if (!selectedTagId) {
+                alert('请先选择要删除的标签');
+                return;
+            }
+            
+            const selectedTag = allTags.find(t => t.id === selectedTagId);
+            const articleCount = selectedTag ? (selectedTag.articles ? selectedTag.articles.length : 0) : 0;
+            
+            if (!confirm(`确定要删除标签"${selectedTag.name}"吗？\n这将同时删除该标签下的 ${articleCount} 篇文章！\n此操作不可恢复！`)) {
+                return;
+            }
+            
+            try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (authToken) {
+                    headers['Authorization'] = authToken;
+                }
+                
+                const response = await fetch('/api/delete-tag', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ tagId: selectedTagId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('delete-success-info').style.display = 'block';
+                    document.getElementById('delete-success-message').textContent = result.message;
+                    selectedTagId = null;
+                    document.getElementById('delete-preview').style.display = 'none';
+                    loadTagsList();
+                } else {
+                    alert('删除失败：' + result.message);
+                }
+            } catch (error) {
+                alert('网络错误，请检查连接');
+                console.error('删除标签失败:', error);
+            }
+        });
+    </script>
+</body>
+</html>
