@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-const port = 80;
+const port = 3456;
 
 // 设置 CORS 响应头中间件
 app.use((req, res, next) => {
@@ -784,3 +784,4 @@ function convertMarkdownToHtml(markdown) {
 </html>`;
     fs.writeFileSync(path.join(tagDir, '文章列表.html'), listHtml, 'utf8');
 }
+

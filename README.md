@@ -1,73 +1,74 @@
-﻿# 文章管理系统
+# ���¹���ϵͳ
 
-一个基于Node.js和Express的轻量级文章管理系统，支持标签分类、文章发布、草稿保存等功能。
+һ������Node.js��Express�����������¹���ϵͳ��֧�ֱ�ǩ���ࡢ���·������ݸ屣��ȹ��ܡ�
 
-## 功能特性
+## ��������
 
-- 标签管理：创建、删除标签，支持标签显示/隐藏
-- 文章发布：支持Markdown格式，可选隐藏文章
-- 草稿功能：保存草稿，支持继续编辑
-- 用户认证：基于Basic Auth的用户验证
-- 文章删除：删除文章及其关联数据
+- ��ǩ������������ɾ����ǩ��֧�ֱ�ǩ��ʾ/����
+- ���·�����֧��Markdown��ʽ����ѡ��������
+- �ݸ幦�ܣ�����ݸ壬֧�ּ����༭
+- �û���֤������Basic Auth���û���֤
+- ����ɾ����ɾ�����¼����������
 
-## 技术栈
+## ����ջ
 
-- 后端：Node.js + Express
-- 前端：原生HTML/CSS/JavaScript
-- 数据存储：本地文件系统（JSON）
+- ��ˣ�Node.js + Express
+- ǰ�ˣ�ԭ��HTML/CSS/JavaScript
+- ���ݴ洢�������ļ�ϵͳ��JSON��
 
-## 安装运行
+## ��װ����
 
 `ash
-# 安装依赖
+# ��װ����
 npm install
 
-# 启动服务器
+# ����������
 node server.js
 `
 
-访问地址：http://localhost:80
+���ʵ�ַ��http://localhost:3456
 
-如需修改端口，请编辑 server.js 文件中的 port 变量。
+�����޸Ķ˿ڣ���༭ server.js �ļ��е� port ������
 
-## 默认用户
+## Ĭ���û�
 
-- 用户名：admin
-- 密码：admin123
+- �û�����admin
+- ���룺admin123
 
-- 用户名：user
-- 密码：user123
+- �û�����user
+- ���룺user123
 
-## 项目结构
+## ��Ŀ�ṹ
 
-- server.js - 服务器主文件
-- package.json - 项目配置
-- README.md - 项目说明
-- .gitignore - Git忽略文件
-- icon.png - 网站图标
-- 文章/ - 文章数据目录
-  - main.html - 主页（标签选择页面）
-  - 添加文章.html - 添加文章页面
-  - 添加标签.html - 添加标签页面
-  - 草稿/ - 草稿存储
-  - 标签/ - 标签数据
+- server.js - ���������ļ�
+- package.json - ��Ŀ����
+- README.md - ��Ŀ˵��
+- .gitignore - Git�����ļ�
+- icon.png - ��վͼ��
+- ����/ - ��������Ŀ¼
+  - main.html - ��ҳ����ǩѡ��ҳ�棩
+  - ��������.html - ��������ҳ��
+  - ���ӱ�ǩ.html - ���ӱ�ǩҳ��
+  - �ݸ�/ - �ݸ�洢
+  - ��ǩ/ - ��ǩ����
 
-## API接口
+## API�ӿ�
 
-- POST /api/verify-user - 用户验证
-- POST /api/save-tag - 保存标签
-- POST /api/save-draft - 保存草稿
-- GET /api/get-drafts - 获取草稿列表
-- POST /api/save-article - 保存文章
-- POST /api/delete-article - 删除文章
-- POST /api/delete-tag - 删除标签
+- POST /api/verify-user - �û���֤
+- POST /api/save-tag - �����ǩ
+- POST /api/save-draft - ����ݸ�
+- GET /api/get-drafts - ��ȡ�ݸ��б�
+- POST /api/save-article - ��������
+- POST /api/delete-article - ɾ������
+- POST /api/delete-tag - ɾ����ǩ
 
-## 许可证
+## ����֤
 
 MIT License
 
-本项目采用MIT许可证，允许自由使用、修改和分发。
+����Ŀ����MIT����֤����������ʹ�á��޸ĺͷַ���
 
-## 项目地址
+## ��Ŀ��ַ
 
 GitHub: https://github.com/FFMYC/blog
+
