@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,9 @@
         .info-item { margin-bottom: 10px; color: #666; }
         .info-label { font-weight: bold; }
         .content { margin-top: 20px; white-space: pre-wrap; }
+        h2 { color: #2c3e50; margin-top: 20px; margin-bottom: 10px; }
+        ul { margin-left: 20px; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
     </style>
 </head>
 <body>
@@ -19,35 +22,37 @@
         <div class="header">
             <h1>README</h1>
         </div>
-        <div class="info-item"><span class="info-label">��ǩ��</span>ȫ��</div>
-        <div class="info-item"><span class="info-label">���ߣ�</span>FFMYC</div>
-        <div class="info-item"><span class="info-label">����ʱ�䣺</span>2026-02-16</div>
-        <div class="content">��ӭʹ�����¹���ϵͳ��
+        <div class="info-item"><span class="info-label">标签：</span>全部</div>
+        <div class="info-item"><span class="info-label">作者：</span>FFMYC</div>
+        <div class="info-item"><span class="info-label">发布时间：</span>2026-02-16</div>
+        <div class="content">欢迎使用文章管理系统！
 
-����һ������Node.js��Express�����������¹���ϵͳ��
+这是一个基于Node.js和Express的轻量级文章管理系统。
 
-## ��������
+<h2>功能特性</h2>
+<ul>
+<li>标签管理：创建、删除标签，支持标签显示/隐藏</li>
+<li>文章发布：支持Markdown格式，可选隐藏文章</li>
+<li>草稿功能：保存草稿，支持继续编辑</li>
+<li>用户认证：基于Basic Auth的用户验证</li>
+</ul>
 
-- ��ǩ������������ɾ����ǩ��֧�ֱ�ǩ��ʾ/����
-- ���·�����֧��Markdown��ʽ����ѡ��������
-- �ݸ幦�ܣ�����ݸ壬֧�ּ����༭
-- �û���֤������Basic Auth���û���֤
+<h2>使用说明</h2>
+<ol>
+<li>登录系统（默认用户：<code>admin/admin123</code>）</li>
+<li>创建标签或使用现有标签</li>
+<li>撰写文章并发布</li>
+<li>管理和查看已发布的文章</li>
+</ol>
 
-## ʹ��˵��
+<h2>技术栈</h2>
+<ul>
+<li>后端：Node.js + Express</li>
+<li>前端：原生HTML/CSS/JavaScript</li>
+<li>数据存储：本地文件系统（JSON）</li>
+</ul>
 
-1. ��¼ϵͳ��Ĭ���û���admin/admin123��
-2. ������ǩ��ʹ�����б�ǩ
-3. ׫д���²�����
-4. �����Ͳ鿴�ѷ���������
-
-## ����ջ
-
-- ��ˣ�Node.js + Express
-- ǰ�ˣ�ԭ��HTML/CSS/JavaScript
-- ���ݴ洢�������ļ�ϵͳ��JSON��
-
-## ��Ŀ��ַ
-
+<h2>项目地址</h2>
 GitHub: https://github.com/FFMYC/blog</div>
     </div>
 </body>
