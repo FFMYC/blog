@@ -59,14 +59,14 @@
     </style>
 </head>
 <body>
-    <a href="标签选择.html" class="back-btn">← 返回标签选择</a>
+    
     <div class="container">
         <h1>📝 文章管理</h1>
         
-        <!-- 选项卡 -->
+        <!-- 选项�?-->
         <div class="tabs" id="tabs" style="display: none;">
-            <button class="tab-btn active" data-tab="add">➕ 添加文章</button>
-            <button class="tab-btn" data-tab="delete">🗑️ 删除文章</button>
+            <button class="tab-btn active" data-tab="add">�?添加文章</button>
+            <button class="tab-btn" data-tab="delete">🗑�?删除文章</button>
         </div>
         
         <!-- 登录验证区域 -->
@@ -74,12 +74,12 @@
             <div class="auth-card">
                 <h2>🔐 身份验证</h2>
                 <div class="form-group">
-                    <label class="form-label">用户名 *</label>
+                    <label class="form-label">用户�?*</label>
                     <input type="text" class="form-input" id="auth-username" placeholder="请输入用户名">
                 </div>
                 <div class="form-group">
                     <label class="form-label">密码 *</label>
-                    <input type="password" class="form-input" id="auth-password" placeholder="请输入密码">
+                    <input type="password" class="form-input" id="auth-password" placeholder="请输入密�?>
                 </div>
                 <button type="button" class="btn btn-primary" id="login-btn" style="width: 100%;">登录</button>
             </div>
@@ -87,7 +87,7 @@
         
         <!-- 文章表单区域 -->
         <div class="article-form-section" id="article-form-section" style="display: none;">
-        <!-- 添加文章选项卡 -->
+        <!-- 添加文章选项�?-->
         <div class="tab-content active" id="tab-add">
             <div class="draft-selector" id="draft-selector">
                 <h3>📝 选择草稿继续编辑</h3>
@@ -98,7 +98,7 @@
             <form id="article-form">
             <div class="form-group">
                 <label class="form-label">文章标题 *</label>
-                <input type="text" class="form-input" id="article-title" placeholder="请输入文章标题" required>
+                <input type="text" class="form-input" id="article-title" placeholder="请输入文章标�? required>
                 <p class="form-hint">标题长度建议 5-50 字符</p>
             </div>
             
@@ -107,13 +107,13 @@
                 <select class="form-select" id="article-tag" required>
                     <option value="">选择标签</option>
                 </select>
-                <p class="form-hint">选择现有标签，标签类型将在选择后显示</p>
+                <p class="form-hint">选择现有标签，标签类型将在选择后显�?/p>
                 <div id="tag-type-indicator" style="margin-top: 8px; display: none;"></div>
             </div>
             
             <div class="form-group">
-                <label class="form-label">作者 *</label>
-                <input type="text" class="form-input" id="article-author" placeholder="请输入作者名称" required>
+                <label class="form-label">作�?*</label>
+                <input type="text" class="form-input" id="article-author" placeholder="请输入作者名�? required>
             </div>
             
             <div class="form-group">
@@ -132,7 +132,7 @@
             
             <div class="form-group">
                 <label class="form-label">文章内容 *</label>
-                <textarea class="form-textarea" id="article-content" placeholder="请输入文章内容（支持Markdown格式）" required></textarea>
+                <textarea class="form-textarea" id="article-content" placeholder="请输入文章内容（支持Markdown格式�? required></textarea>
                 <p class="form-hint">支持Markdown格式，段落之间用空行分隔</p>
             </div>
             
@@ -144,18 +144,18 @@
         </form>
         
         <div class="file-info" id="file-info">
-            <h3>✅ 文章已创建</h3>
+            <h3>�?文章已创�?/h3>
             <p class="file-path" id="file-path"></p>
             <div class="file-preview" id="file-preview"></div>
         </div>
         </div>
         
-        <!-- 删除文章选项卡 -->
+        <!-- 删除文章选项�?-->
         <div class="tab-content" id="tab-delete">
             <div class="form-group">
                 <label class="form-label">选择要删除的文章</label>
                 <div id="articles-list"></div>
-                <p class="form-hint">点击选择要删除的文章，红色边框表示隐藏文章</p>
+                <p class="form-hint">点击选择要删除的文章，红色边框表示隐藏文�?/p>
             </div>
             
             <div class="form-group" id="delete-preview" style="display: none;">
@@ -168,11 +168,11 @@
             </div>
             
             <div class="form-actions">
-                <button type="button" class="btn delete-btn" id="delete-article-btn">🗑️ 删除选中的文章</button>
+                <button type="button" class="btn delete-btn" id="delete-article-btn">🗑�?删除选中的文�?/button>
             </div>
             
             <div class="success-info" id="delete-success-info" style="background-color: #f8d7da; border-left-color: #dc3545; display: none;">
-                <h3 style="color: #dc3545; margin-bottom: 10px;">✅ 文章已删除</h3>
+                <h3 style="color: #dc3545; margin-bottom: 10px;">�?文章已删�?/h3>
                 <p id="delete-success-message" style="color: #721c24;"></p>
             </div>
         </div>
@@ -220,7 +220,7 @@
                 const isHidden = selectedOption.dataset.hidden === 'true';
                 indicator.style.display = 'block';
                 indicator.className = 'tag-type-indicator ' + (isHidden ? 'tag-type-hidden' : 'tag-type-visible');
-                indicator.textContent = isHidden ? '🔒 隐藏标签' : '👁️ 显示标签';
+                indicator.textContent = isHidden ? '🔒 隐藏标签' : '👁�?显示标签';
             } else {
                 indicator.style.display = 'none';
             }
@@ -270,7 +270,7 @@
             drafts.forEach(draft => {
                 const item = document.createElement('div');
                 item.className = 'draft-item';
-                item.innerHTML = `<strong>${draft.title || '无标题'}</strong><br><small>${draft.saveTime}</small>`;
+                item.innerHTML = `<strong>${draft.title || '无标�?}</strong><br><small>${draft.saveTime}</small>`;
                 item.onclick = () => loadDraft(draft);
                 list.appendChild(item);
             });
@@ -308,7 +308,7 @@
             const password = document.getElementById('auth-password').value;
             
             if (!username || !password) {
-                alert('请输入用户名和密码');
+                alert('请输入用户名和密�?);
                 return;
             }
             
@@ -334,7 +334,7 @@
                     alert(result.message);
                 }
             } catch (error) {
-                alert('网络错误，请检查连接');
+                alert('网络错误，请检查连�?);
                 console.error('验证失败:', error);
             }
         });
@@ -350,7 +350,7 @@
             const hidden = document.getElementById('article-hidden').checked;
             
             if (!title) {
-                alert('请输入文章标题');
+                alert('请输入文章标�?);
                 return;
             }
             
@@ -380,13 +380,13 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    alert('草稿保存成功！');
+                    alert('草稿保存成功�?);
                     currentDraft = result.draftId;
                 } else {
-                    alert('保存失败：' + result.message);
+                    alert('保存失败�? + result.message);
                 }
             } catch (error) {
-                alert('网络错误，请检查连接');
+                alert('网络错误，请检查连�?);
                 console.error('保存草稿失败:', error);
             }
         });
@@ -402,7 +402,7 @@
             const hidden = document.getElementById('article-hidden').checked;
             
             if (!title) {
-                alert('请输入文章标题');
+                alert('请输入文章标�?);
                 return;
             }
             if (!tagId) {
@@ -410,7 +410,7 @@
                 return;
             }
             if (!author) {
-                alert('请输入作者名称');
+                alert('请输入作者名�?);
                 return;
             }
             if (!time) {
@@ -418,7 +418,7 @@
                 return;
             }
             if (!content) {
-                alert('请输入文章内容');
+                alert('请输入文章内�?);
                 return;
             }
             
@@ -450,18 +450,18 @@
                 if (result.success) {
                     document.getElementById('file-info').style.display = 'block';
                     document.getElementById('file-path').textContent = result.filePath;
-                    document.getElementById('file-preview').textContent = `标题: ${title}\n作者: ${author}\n发布时间: ${time}\n标签: ${articleData.tagName}`;
-                    alert('文章发布成功！');
+                    document.getElementById('file-preview').textContent = `标题: ${title}\n作�? ${author}\n发布时间: ${time}\n标签: ${articleData.tagName}`;
+                    alert('文章发布成功�?);
                     document.getElementById('article-form').reset();
                     document.getElementById('draft-selector').style.display = 'none';
                     currentDraft = null;
                     setDefaultTime();
                     loadDrafts();
                 } else {
-                    alert('发布失败：' + result.message);
+                    alert('发布失败�? + result.message);
                 }
             } catch (error) {
-                alert('网络错误，请检查连接');
+                alert('网络错误，请检查连�?);
                 console.error('保存文章失败:', error);
             }
         });
@@ -469,15 +469,14 @@
         document.getElementById('preview-btn').addEventListener('click', function() {
             const content = document.getElementById('article-content').value;
             const title = document.getElementById('article-title').value;
-            alert('预览功能开发中...\n\n标题: ' + (title || '未设置') + '\n内容长度: ' + content.length + ' 字符');
+            alert('预览功能开发中...\n\n标题: ' + (title || '未设�?) + '\n内容长度: ' + content.length + ' 字符');
         });
         
         window.addEventListener('DOMContentLoaded', function() {
             loadTags();
             setDefaultTime();
             
-            // 选项卡切换
-            document.querySelectorAll('.tab-btn').forEach(btn => {
+            // 选项卡切�?            document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -491,8 +490,7 @@
             });
         });
         
-        // 加载所有文章
-        async function loadAllArticles() {
+        // 加载所有文�?        async function loadAllArticles() {
             try {
                 allArticles = [];
                 const response = await fetch('标签/metadata.json');
@@ -500,8 +498,7 @@
                     const data = await response.json();
                     allTags = data.tags || [];
                     
-                    // 遍历所有标签获取文章
-                    for (const tag of allTags) {
+                    // 遍历所有标签获取文�?                    for (const tag of allTags) {
                         try {
                             const tagResponse = await fetch(`标签/${tag.folder}/metadata.json`);
                             if (tagResponse.ok) {
@@ -546,7 +543,7 @@
                 item.innerHTML = `
                     <div class="article-list-item-title">${article.title}</div>
                     <div class="article-list-item-meta">
-                        <span>🏷️ ${article.tagName}</span>
+                        <span>🏷�?${article.tagName}</span>
                         <span>👤 ${article.author}</span>
                         <span>📅 ${article.createTime}</span>
                         ${article.hidden ? '<span>🔒 隐藏</span>' : ''}
@@ -571,7 +568,7 @@
             // 显示预览
             document.getElementById('delete-preview').style.display = 'block';
             document.getElementById('preview-title').textContent = article.title;
-            document.getElementById('preview-meta').textContent = `标签: ${article.tagName} | 作者: ${article.author} | 时间: ${article.createTime}`;
+            document.getElementById('preview-meta').textContent = `标签: ${article.tagName} | 作�? ${article.author} | 时间: ${article.createTime}`;
             document.getElementById('preview-summary').textContent = article.hidden ? '这是隐藏文章，需要通过网址访问' : '这是显示文章';
         }
         
@@ -582,7 +579,7 @@
                 return;
             }
             
-            if (!confirm('确定要删除这篇文章吗？此操作不可恢复！')) {
+            if (!confirm('确定要删除这篇文章吗？此操作不可恢复�?)) {
                 return;
             }
             
@@ -607,10 +604,10 @@
                     document.getElementById('delete-preview').style.display = 'none';
                     loadAllArticles();
                 } else {
-                    alert('删除失败：' + result.message);
+                    alert('删除失败�? + result.message);
                 }
             } catch (error) {
-                alert('网络错误，请检查连接');
+                alert('网络错误，请检查连�?);
                 console.error('删除文章失败:', error);
             }
         });

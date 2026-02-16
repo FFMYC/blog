@@ -54,14 +54,14 @@
     </style>
 </head>
 <body>
-    <a href="标签选择.html" class="back-btn">← 返回标签选择</a>
+    
     <div class="container">
-        <h1>🏷️ 标签管理</h1>
+        <h1>🏷�?标签管理</h1>
         
-        <!-- 选项卡 -->
+        <!-- 选项�?-->
         <div class="tabs" id="tabs" style="display: none;">
-            <button class="tab-btn active" data-tab="add">➕ 添加标签</button>
-            <button class="tab-btn" data-tab="delete">🗑️ 删除标签</button>
+            <button class="tab-btn active" data-tab="add">�?添加标签</button>
+            <button class="tab-btn" data-tab="delete">🗑�?删除标签</button>
         </div>
         
         <!-- 登录验证区域 -->
@@ -69,12 +69,12 @@
             <div class="auth-card">
                 <h2>🔐 身份验证</h2>
                 <div class="form-group">
-                    <label class="form-label">用户名 *</label>
+                    <label class="form-label">用户�?*</label>
                     <input type="text" class="form-input" id="auth-username" placeholder="请输入用户名">
                 </div>
                 <div class="form-group">
                     <label class="form-label">密码 *</label>
-                    <input type="password" class="form-input" id="auth-password" placeholder="请输入密码">
+                    <input type="password" class="form-input" id="auth-password" placeholder="请输入密�?>
                 </div>
                 <button type="button" class="btn btn-primary" id="login-btn" style="width: 100%;">登录</button>
             </div>
@@ -82,19 +82,19 @@
         
         <!-- 标签表单区域 -->
         <div class="tag-form-section" id="tag-form-section" style="display: none;">
-            <!-- 添加标签选项卡 -->
+            <!-- 添加标签选项�?-->
             <div class="tab-content active" id="tab-add">
                 <form id="tag-form">
                 <div class="form-group">
                     <label class="form-label">标签名称 *</label>
-                    <input type="text" class="form-input" id="tag-name" placeholder="请输入标签名称" required>
-                    <p class="form-hint">标签名称建议 2-20 字符，用于分类文章</p>
+                    <input type="text" class="form-input" id="tag-name" placeholder="请输入标签名�? required>
+                    <p class="form-hint">标签名称建议 2-20 字符，用于分类文�?/p>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">标签说明 *</label>
                     <textarea class="form-textarea" id="tag-description" placeholder="请输入标签的说明描述" required></textarea>
-                    <p class="form-hint">简要描述该标签的用途和包含的文章类型</p>
+                    <p class="form-hint">简要描述该标签的用途和包含的文章类�?/p>
                 </div>
                 
                 <div class="form-group">
@@ -113,12 +113,12 @@
             </form>
             
             <div class="success-info" id="success-info">
-                <h3>✅ 标签创建成功</h3>
+                <h3>�?标签创建成功</h3>
                 <p id="success-message"></p>
             </div>
             </div>
             
-            <!-- 删除标签选项卡 -->
+            <!-- 删除标签选项�?-->
             <div class="tab-content" id="tab-delete">
                 <div class="delete-warning">
                     <h3>⚠️ 警告</h3>
@@ -128,7 +128,7 @@
                 <div class="form-group">
                     <label class="form-label">选择要删除的标签</label>
                     <div id="tags-list"></div>
-                    <p class="form-hint">点击选择要删除的标签，红色边框表示隐藏标签</p>
+                    <p class="form-hint">点击选择要删除的标签，红色边框表示隐藏标�?/p>
                 </div>
                 
                 <div class="form-group" id="delete-preview" style="display: none;">
@@ -141,11 +141,11 @@
                 </div>
                 
                 <div class="form-actions">
-                    <button type="button" class="btn delete-btn" id="delete-tag-btn">🗑️ 删除选中的标签</button>
+                    <button type="button" class="btn delete-btn" id="delete-tag-btn">🗑�?删除选中的标�?/button>
                 </div>
                 
                 <div class="success-info" id="delete-success-info" style="background-color: #f8d7da; border-left-color: #dc3545; display: none;">
-                    <h3 style="color: #dc3545; margin-bottom: 10px;">✅ 标签已删除</h3>
+                    <h3 style="color: #dc3545; margin-bottom: 10px;">�?标签已删�?/h3>
                     <p id="delete-success-message" style="color: #721c24;"></p>
                 </div>
             </div>
@@ -163,7 +163,7 @@
             const password = document.getElementById('auth-password').value;
             
             if (!username || !password) {
-                alert('请输入用户名和密码');
+                alert('请输入用户名和密�?);
                 return;
             }
             
@@ -187,7 +187,7 @@
                     alert(result.message);
                 }
             } catch (error) {
-                alert('网络错误，请检查连接');
+                alert('网络错误，请检查连�?);
                 console.error('验证失败:', error);
             }
         });
@@ -200,11 +200,11 @@
             const hidden = document.getElementById('tag-hidden').checked;
             
             if (!name) {
-                alert('请输入标签名称');
+                alert('请输入标签名�?);
                 return;
             }
             if (!description) {
-                alert('请输入标签说明');
+                alert('请输入标签说�?);
                 return;
             }
             
@@ -234,22 +234,21 @@
                     document.getElementById('success-message').textContent = `标签 "${name}" 创建成功！类型：${typeText}`;
                     document.getElementById('tag-form').reset();
                 } else {
-                    alert('创建失败：' + result.message);
+                    alert('创建失败�? + result.message);
                 }
             } catch (error) {
-                alert('网络错误，请检查连接');
+                alert('网络错误，请检查连�?);
                 console.error('保存标签失败:', error);
             }
         });
         
         document.getElementById('cancel-btn').addEventListener('click', function() {
-            if (confirm('确定要取消创建标签吗？')) {
+            if (confirm('确定要取消创建标签吗�?)) {
                 window.location.href = '标签选择.html';
             }
         });
         
-        // 选项卡切换
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        // 选项卡切�?        document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -293,8 +292,8 @@
                 item.innerHTML = `
                     <div class="tag-list-item-name">${tag.name}</div>
                     <div class="tag-list-item-meta">
-                        <span>📝 ${tag.articles ? tag.articles.length : 0} 篇文章</span>
-                        ${tag.hidden ? '<span>🔒 隐藏</span>' : '<span>👁️ 显示</span>'}
+                        <span>📝 ${tag.articles ? tag.articles.length : 0} 篇文�?/span>
+                        ${tag.hidden ? '<span>🔒 隐藏</span>' : '<span>👁�?显示</span>'}
                     </div>
                 `;
                 item.onclick = () => selectTag(tag);
@@ -330,7 +329,7 @@
             const selectedTag = allTags.find(t => t.id === selectedTagId);
             const articleCount = selectedTag ? (selectedTag.articles ? selectedTag.articles.length : 0) : 0;
             
-            if (!confirm(`确定要删除标签"${selectedTag.name}"吗？\n这将同时删除该标签下的 ${articleCount} 篇文章！\n此操作不可恢复！`)) {
+            if (!confirm(`确定要删除标�?${selectedTag.name}"吗？\n这将同时删除该标签下�?${articleCount} 篇文章！\n此操作不可恢复！`)) {
                 return;
             }
             
@@ -355,10 +354,10 @@
                     document.getElementById('delete-preview').style.display = 'none';
                     loadTagsList();
                 } else {
-                    alert('删除失败：' + result.message);
+                    alert('删除失败�? + result.message);
                 }
             } catch (error) {
-                alert('网络错误，请检查连接');
+                alert('网络错误，请检查连�?);
                 console.error('删除标签失败:', error);
             }
         });

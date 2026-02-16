@@ -16,23 +16,20 @@ app.use((req, res, next) => {
     }
 });
 
-// 保留原有静态文件服务（支持访问根目录及子文件夹文件）
-app.use(express.static(__dirname));
-// 解析 JSON 请求体（用于接收表单数据）
-app.use(express.json());
+// 保留原有静态文件服务（支持访问根目录及子文件夹文件�?app.use(express.static(__dirname));
+// 解析 JSON 请求体（用于接收表单数据�?app.use(express.json());
 
-// 用户配置（生产环境建议使用环境变量或加密存储）
-const USERS = {
+// 用户配置（生产环境建议使用环境变量或加密存储�?const USERS = {
     'admin': 'admin123',
     'user': 'user123'
 };
 
-// 认证中间件 - 验证用户凭据
+// 认证中间�?- 验证用户凭据
 function authenticateUser(req, res, next) {
     const authHeader = req.headers.authorization;
     
     if (!authHeader) {
-        return res.status(401).json({ success: false, message: '需要认证' });
+        return res.status(401).json({ success: false, message: '需要认�? });
     }
     
     // 从Base64解码 Basic Auth: base64(username:password)
@@ -59,8 +56,7 @@ app.post('/api/verify-user', (req, res) => {
     }
 });
 
-// 根路径路由：保留原有返回 main.html 的功能
-app.get('/', (req, res) => {
+// 根路径路由：保留原有返回 main.html 的功�?app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'main.html'));
 });
 
@@ -78,9 +74,9 @@ app.post('/api/save-feedback-tag', (req, res) => {
         fs.writeFileSync(metadataPath, JSON.stringify({ tags: tags }, null, 2), 'utf8');
         
         res.json({ success: true, message: '标签保存成功' });
-        console.log(`✅ 反馈标签保存成功`);
+        console.log(`�?反馈标签保存成功`);
     } catch (error) {
-        console.error('❌ 保存反馈标签失败:', error);
+        console.error('�?保存反馈标签失败:', error);
         res.status(500).json({ success: false, message: '保存失败，请重试' });
     }
 });
@@ -99,11 +95,9 @@ app.post('/api/check-feedback-duplicate', (req, res) => {
             return res.json({ exists: false, sequence: 0 });
         }
         
-        // 读取所有反馈文件
-        const files = fs.readdirSync(saveDir).filter(file => file.endsWith('.html'));
+        // 读取所有反馈文�?        const files = fs.readdirSync(saveDir).filter(file => file.endsWith('.html'));
         
-        // 查找匹配的标题
-        const pattern = new RegExp(`^${baseTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-(\\d+))?\\.html$`);
+        // 查找匹配的标�?        const pattern = new RegExp(`^${baseTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-(\\d+))?\\.html$`);
         const matches = [];
         
         files.forEach(file => {
@@ -118,13 +112,12 @@ app.post('/api/check-feedback-duplicate', (req, res) => {
             return res.json({ exists: false, sequence: 0 });
         }
         
-        // 找到最大序号并返回下一个序号
-        const maxSequence = Math.max(...matches);
+        // 找到最大序号并返回下一个序�?        const maxSequence = Math.max(...matches);
         return res.json({ exists: true, sequence: maxSequence + 1 });
         
     } catch (error) {
-        console.error('❌ 检查重名失败:', error);
-        res.status(500).json({ success: false, message: '检查失败，请重试' });
+        console.error('�?检查重名失�?', error);
+        res.status(500).json({ success: false, message: '检查失败，请重�? });
     }
 });
 
@@ -136,14 +129,14 @@ app.post('/save-ticket', (req, res) => {
         
         if (!fs.existsSync(saveDir)) {
             fs.mkdirSync(saveDir, { recursive: true });
-            console.log(`📁 自动创建反馈文件夹: ${saveDir}`);
+            console.log(`📁 自动创建反馈文件�? ${saveDir}`);
         }
         
-        // 使用前端传递的文件名（格式：标签-标题名-用户名）
+        // 使用前端传递的文件名（格式：标�?标题�?用户名）
         const safeFileName = fileName.replace(/[\/:*?"<>|]/g, '-') + '.html';
         const filePath = path.join(saveDir, safeFileName);
         
-        // 调整文件内容格式为完整的HTML，使用 <br> 处理换行
+        // 调整文件内容格式为完整的HTML，使�?<br> 处理换行
         const formattedContent = content.replace(/\n/g, '<br>');
         const fileContent = `<!DOCTYPE html>
 <html lang="zh-CN">
@@ -165,8 +158,8 @@ app.post('/save-ticket', (req, res) => {
         <div class="header">
             <h1>${title}</h1>
         </div>
-        <div class="info-item"><span class="info-label">标签：</span>${tag}</div>
-        <div class="info-item"><span class="info-label">提交时间：</span>${new Date().toLocaleString()}</div>
+        <div class="info-item"><span class="info-label">标签�?/span>${tag}</div>
+        <div class="info-item"><span class="info-label">提交时间�?/span>${new Date().toLocaleString()}</div>
         <div class="info-item"><span class="info-label">提交人：</span>${publisher}</div>
         <div class="content">${formattedContent}</div>
     </div>
@@ -175,18 +168,17 @@ app.post('/save-ticket', (req, res) => {
         
         fs.writeFileSync(filePath, fileContent, 'utf8');
         res.json({ success: true, message: '工单保存成功', filePath: `/联系/反馈/${safeFileName}` });
-        console.log(`✅ 新工单保存: ${filePath}`);
+        console.log(`�?新工单保�? ${filePath}`);
     } catch (error) {
-        console.error('❌ 工单保存失败:', error);
+        console.error('�?工单保存失败:', error);
         res.status(500).json({ success: false, message: '保存失败，请重试' });
     }
 });
 
-// 启动服务器（支持公网访问）
-app.listen(port, '0.0.0.0', () => {
-    console.log(`✅ 服务器启动成功!`);
+// 启动服务器（支持公网访问�?app.listen(port, '0.0.0.0', () => {
+    console.log(`�?服务器启动成�?`);
     console.log(`📡 公网访问表单: http://47.117.126.60:40006/%E8%81%94%E7%B3%BB/%E5%8F%8D%E9%A6%88.html`);
-    console.log(`💻 本地访问根目录: http://localhost:${port}`);
+    console.log(`💻 本地访问根目�? http://localhost:${port}`);
     console.log(`📁 服务目录: ${__dirname}`);
     console.log(`📂 工单保存目录: ${path.join(__dirname, '联系', '反馈')}`);
     console.log(`📚 文章目录: ${path.join(__dirname, '文章')}`);
@@ -196,7 +188,7 @@ app.listen(port, '0.0.0.0', () => {
 app.post('/api/save-tag', (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).json({ success: false, message: '需要登录才能创建标签' });
+        return res.status(401).json({ success: false, message: '需要登录才能创建标�? });
     }
     
     const base64Credentials = authHeader.split(' ')[1];
@@ -204,7 +196,7 @@ app.post('/api/save-tag', (req, res) => {
     const [username, password] = credentials.split(':');
     
     if (!USERS[username] || USERS[username] !== password) {
-        return res.status(401).json({ success: false, message: '无权限创建标签' });
+        return res.status(401).json({ success: false, message: '无权限创建标�? });
     }
     
     try {
@@ -212,7 +204,7 @@ app.post('/api/save-tag', (req, res) => {
         const articlesDir = path.join(__dirname, '文章', '标签');
         
         if (!name || !description) {
-            return res.status(400).json({ success: false, message: '标签名称和说明不能为空' });
+            return res.status(400).json({ success: false, message: '标签名称和说明不能为�? });
         }
         
         if (!fs.existsSync(articlesDir)) {
@@ -226,17 +218,14 @@ app.post('/api/save-tag', (req, res) => {
             metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
         }
         
-        // 检查标签名是否已存在
-        if (metadata.tags.some(t => t.name === name)) {
-            return res.status(400).json({ success: false, message: '标签名称已存在' });
+        // 检查标签名是否已存�?        if (metadata.tags.some(t => t.name === name)) {
+            return res.status(400).json({ success: false, message: '标签名称已存�? });
         }
         
-        // 创建新标签
-        const newTagId = 'tag_' + Date.now();
+        // 创建新标�?        const newTagId = 'tag_' + Date.now();
         const newTagFolder = name.replace(/[\/:*?"<>|]/g, '-');
         
-        // 添加新标签到元数据
-        metadata.tags.push({
+        // 添加新标签到元数�?        metadata.tags.push({
             id: newTagId,
             name: name,
             description: description,
@@ -251,8 +240,7 @@ app.post('/api/save-tag', (req, res) => {
             fs.mkdirSync(newTagDir, { recursive: true });
         }
         
-        // 创建新标签的元数据
-        const tagMetadata = {
+        // 创建新标签的元数�?        const tagMetadata = {
             tagId: newTagId,
             tagName: name,
             articles: []
@@ -270,9 +258,9 @@ app.post('/api/save-tag', (req, res) => {
             message: '标签创建成功',
             tagId: newTagId
         });
-        console.log(`🏷️  创建新标签: ${name}`);
+        console.log(`🏷�? 创建新标�? ${name}`);
     } catch (error) {
-        console.error('❌ 标签创建失败:', error);
+        console.error('�?标签创建失败:', error);
         res.status(500).json({ success: false, message: '创建失败，请重试' });
     }
 });
@@ -281,7 +269,7 @@ app.post('/api/save-tag', (req, res) => {
 app.post('/api/save-draft', (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).json({ success: false, message: '需要登录才能保存草稿' });
+        return res.status(401).json({ success: false, message: '需要登录才能保存草�? });
     }
     
     const base64Credentials = authHeader.split(' ')[1];
@@ -289,7 +277,7 @@ app.post('/api/save-draft', (req, res) => {
     const [username, password] = credentials.split(':');
     
     if (!USERS[username] || USERS[username] !== password) {
-        return res.status(401).json({ success: false, message: '无权限保存草稿' });
+        return res.status(401).json({ success: false, message: '无权限保存草�? });
     }
     
     try {
@@ -334,8 +322,7 @@ app.post('/api/save-draft', (req, res) => {
         const draftFilePath = path.join(draftsDir, draftId + '.json');
         fs.writeFileSync(draftFilePath, JSON.stringify(draftData, null, 2), 'utf8');
         
-        // 更新元数据
-        fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
+        // 更新元数�?        fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
         
         res.json({
             success: true,
@@ -344,7 +331,7 @@ app.post('/api/save-draft', (req, res) => {
         });
         console.log(`💾 草稿保存: ${draftId}`);
     } catch (error) {
-        console.error('❌ 草稿保存失败:', error);
+        console.error('�?草稿保存失败:', error);
         res.status(500).json({ success: false, message: '保存失败，请重试' });
     }
 });
@@ -353,7 +340,7 @@ app.post('/api/save-draft', (req, res) => {
 app.get('/api/get-drafts', (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).json({ success: false, message: '需要登录才能获取草稿' });
+        return res.status(401).json({ success: false, message: '需要登录才能获取草�? });
     }
     
     const base64Credentials = authHeader.split(' ')[1];
@@ -361,7 +348,7 @@ app.get('/api/get-drafts', (req, res) => {
     const [username, password] = credentials.split(':');
     
     if (!USERS[username] || USERS[username] !== password) {
-        return res.status(401).json({ success: false, message: '无权限获取草稿' });
+        return res.status(401).json({ success: false, message: '无权限获取草�? });
     }
     
     try {
@@ -375,7 +362,7 @@ app.get('/api/get-drafts', (req, res) => {
         const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
         res.json({ success: true, drafts: metadata.drafts || [] });
     } catch (error) {
-        console.error('❌ 获取草稿失败:', error);
+        console.error('�?获取草稿失败:', error);
         res.status(500).json({ success: false, message: '获取失败，请重试' });
     }
 });
@@ -385,7 +372,7 @@ app.post('/api/save-article', (req, res) => {
     // 验证用户权限
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).json({ success: false, message: '需要登录才能发布文章' });
+        return res.status(401).json({ success: false, message: '需要登录才能发布文�? });
     }
     
     const base64Credentials = authHeader.split(' ')[1];
@@ -393,7 +380,7 @@ app.post('/api/save-article', (req, res) => {
     const [username, password] = credentials.split(':');
     
     if (!USERS[username] || USERS[username] !== password) {
-        return res.status(401).json({ success: false, message: '无权限发布文章' });
+        return res.status(401).json({ success: false, message: '无权限发布文�? });
     }
     
     try {
@@ -404,8 +391,7 @@ app.post('/api/save-article', (req, res) => {
             fs.mkdirSync(articlesDir, { recursive: true });
         }
         
-        // 加载标签元数据
-        const metadataPath = path.join(articlesDir, 'metadata.json');
+        // 加载标签元数�?        const metadataPath = path.join(articlesDir, 'metadata.json');
         let metadata = { tags: [] };
         if (fs.existsSync(metadataPath)) {
             metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
@@ -414,14 +400,13 @@ app.post('/api/save-article', (req, res) => {
         // 找到现有标签
         const existingTag = metadata.tags.find(t => t.id === tagId);
         if (!existingTag) {
-            return res.status(400).json({ success: false, message: '标签不存在' });
+            return res.status(400).json({ success: false, message: '标签不存�? });
         }
         
         const targetTagName = existingTag.name;
         const targetTagFolder = existingTag.folder;
         
-        // 创建文章文件夹
-        const safeTitle = title.replace(/[\/:*?"<>|]/g, '-');
+        // 创建文章文件�?        const safeTitle = title.replace(/[\/:*?"<>|]/g, '-');
         const articleFolder = safeTitle;
         const tagDir = path.join(articlesDir, targetTagFolder);
         const articleDir = path.join(tagDir, articleFolder);
@@ -433,8 +418,7 @@ app.post('/api/save-article', (req, res) => {
         // 生成文章ID
         const articleId = 'art_' + Date.now();
         
-        // 创建文章元数据
-        const articleMetadata = {
+        // 创建文章元数�?        const articleMetadata = {
             articleId: articleId,
             title: title,
             author: author,
@@ -488,12 +472,12 @@ app.post('/api/save-article', (req, res) => {
 </head>
 <body>
     <div class="container">
-        <a href="../文章列表.html" class="back-btn">← 返回标签</a>
+        <a href="../文章列表.html" class="back-btn">�?返回标签</a>
         <div class="article-header">
             <h1 class="article-title">${title}</h1>
             <div class="article-meta">
                 <div class="meta-item"><span class="tag-badge">${targetTagName}</span></div>
-                <div class="meta-item">👤 作者: ${author}</div>
+                <div class="meta-item">👤 作�? ${author}</div>
                 <div class="meta-item">📅 发布时间: ${publishTime.replace('T', ' ')}</div>
             </div>
         </div>
@@ -506,8 +490,7 @@ app.post('/api/save-article', (req, res) => {
         // 创建文章TXT
         fs.writeFileSync(path.join(articleDir, '文章.txt'), content, 'utf8');
         
-        // 更新标签元数据
-        const tagMetadataPath = path.join(tagDir, 'metadata.json');
+        // 更新标签元数�?        const tagMetadataPath = path.join(tagDir, 'metadata.json');
         let tagMetadata = { tagId: tagId, tagName: targetTagName, articles: [] };
         if (fs.existsSync(tagMetadataPath)) {
             tagMetadata = JSON.parse(fs.readFileSync(tagMetadataPath, 'utf8'));
@@ -529,8 +512,7 @@ app.post('/api/save-article', (req, res) => {
         }
         fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
         
-        // 删除草稿（如果有）
-        if (draftId) {
+        // 删除草稿（如果有�?        if (draftId) {
             const draftsDir = path.join(__dirname, '文章', '草稿');
             const draftFilePath = path.join(draftsDir, draftId + '.json');
             const draftMetadataPath = path.join(draftsDir, 'metadata.json');
@@ -545,7 +527,7 @@ app.post('/api/save-article', (req, res) => {
                 fs.writeFileSync(draftMetadataPath, JSON.stringify(draftMetadata, null, 2), 'utf8');
             }
             
-            console.log(`🗑️  删除草稿: ${draftId}`);
+            console.log(`🗑�? 删除草稿: ${draftId}`);
         }
         
         res.json({
@@ -553,9 +535,9 @@ app.post('/api/save-article', (req, res) => {
             message: '文章保存成功',
             filePath: `/文章/标签/${targetTagFolder}/${articleFolder}/文章.html`
         });
-        console.log(`✅ 新文章保存: ${path.join(articleDir, '文章.html')}`);
+        console.log(`�?新文章保�? ${path.join(articleDir, '文章.html')}`);
     } catch (error) {
-        console.error('❌ 文章保存失败:', error);
+        console.error('�?文章保存失败:', error);
         res.status(500).json({ success: false, message: '保存失败，请重试' });
     }
 });
@@ -564,7 +546,7 @@ app.post('/api/save-article', (req, res) => {
 app.post('/api/delete-article', (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).json({ success: false, message: '需要登录才能删除文章' });
+        return res.status(401).json({ success: false, message: '需要登录才能删除文�? });
     }
     
     const base64Credentials = authHeader.split(' ')[1];
@@ -572,7 +554,7 @@ app.post('/api/delete-article', (req, res) => {
     const [username, password] = credentials.split(':');
     
     if (!USERS[username] || USERS[username] !== password) {
-        return res.status(401).json({ success: false, message: '无权限删除文章' });
+        return res.status(401).json({ success: false, message: '无权限删除文�? });
     }
     
     try {
@@ -583,10 +565,9 @@ app.post('/api/delete-article', (req, res) => {
             return res.status(400).json({ success: false, message: '文章ID不能为空' });
         }
         
-        // 加载标签元数据
-        const metadataPath = path.join(articlesDir, 'metadata.json');
+        // 加载标签元数�?        const metadataPath = path.join(articlesDir, 'metadata.json');
         if (!fs.existsSync(metadataPath)) {
-            return res.status(404).json({ success: false, message: '未找到标签数据' });
+            return res.status(404).json({ success: false, message: '未找到标签数�? });
         }
         
         const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
@@ -610,15 +591,13 @@ app.post('/api/delete-article', (req, res) => {
             return res.status(404).json({ success: false, message: '未找到指定的文章' });
         }
         
-        // 删除文章文件夹
-        const articleDir = path.join(articlesDir, targetTag.folder, targetArticle.folder);
+        // 删除文章文件�?        const articleDir = path.join(articlesDir, targetTag.folder, targetArticle.folder);
         if (fs.existsSync(articleDir)) {
             fs.rmSync(articleDir, { recursive: true, force: true });
-            console.log(`🗑️  删除文章文件夹: ${articleDir}`);
+            console.log(`🗑�? 删除文章文件�? ${articleDir}`);
         }
         
-        // 更新标签元数据
-        const tagDir = path.join(articlesDir, targetTag.folder);
+        // 更新标签元数�?        const tagDir = path.join(articlesDir, targetTag.folder);
         const tagMetadataPath = path.join(tagDir, 'metadata.json');
         if (fs.existsSync(tagMetadataPath)) {
             const tagMetadata = JSON.parse(fs.readFileSync(tagMetadataPath, 'utf8'));
@@ -634,9 +613,9 @@ app.post('/api/delete-article', (req, res) => {
             success: true,
             message: `文章 "${targetArticle.title}" 删除成功`
         });
-        console.log(`✅ 文章删除成功: ${targetArticle.title}`);
+        console.log(`�?文章删除成功: ${targetArticle.title}`);
     } catch (error) {
-        console.error('❌ 删除文章失败:', error);
+        console.error('�?删除文章失败:', error);
         res.status(500).json({ success: false, message: '删除失败，请重试' });
     }
 });
@@ -645,7 +624,7 @@ app.post('/api/delete-article', (req, res) => {
 app.post('/api/delete-tag', (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).json({ success: false, message: '需要登录才能删除标签' });
+        return res.status(401).json({ success: false, message: '需要登录才能删除标�? });
     }
     
     const base64Credentials = authHeader.split(' ')[1];
@@ -653,7 +632,7 @@ app.post('/api/delete-tag', (req, res) => {
     const [username, password] = credentials.split(':');
     
     if (!USERS[username] || USERS[username] !== password) {
-        return res.status(401).json({ success: false, message: '无权限删除标签' });
+        return res.status(401).json({ success: false, message: '无权限删除标�? });
     }
     
     try {
@@ -664,10 +643,9 @@ app.post('/api/delete-tag', (req, res) => {
             return res.status(400).json({ success: false, message: '标签ID不能为空' });
         }
         
-        // 加载标签元数据
-        const metadataPath = path.join(articlesDir, 'metadata.json');
+        // 加载标签元数�?        const metadataPath = path.join(articlesDir, 'metadata.json');
         if (!fs.existsSync(metadataPath)) {
-            return res.status(404).json({ success: false, message: '未找到标签数据' });
+            return res.status(404).json({ success: false, message: '未找到标签数�? });
         }
         
         const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
@@ -685,7 +663,7 @@ app.post('/api/delete-tag', (req, res) => {
         const tagDir = path.join(articlesDir, targetTag.folder);
         if (fs.existsSync(tagDir)) {
             fs.rmSync(tagDir, { recursive: true, force: true });
-            console.log(`🗑️  删除标签文件夹: ${tagDir}（包含 ${articleCount} 篇文章）`);
+            console.log(`🗑�? 删除标签文件�? ${tagDir}（包�?${articleCount} 篇文章）`);
         }
         
         // 从主元数据中移除标签
@@ -696,9 +674,9 @@ app.post('/api/delete-tag', (req, res) => {
             success: true,
             message: `标签 "${targetTag.name}" 及其 ${articleCount} 篇文章删除成功`
         });
-        console.log(`✅ 标签删除成功: ${targetTag.name}`);
+        console.log(`�?标签删除成功: ${targetTag.name}`);
     } catch (error) {
-        console.error('❌ 删除标签失败:', error);
+        console.error('�?删除标签失败:', error);
         res.status(500).json({ success: false, message: '删除失败，请重试' });
     }
 });
@@ -706,8 +684,7 @@ app.post('/api/delete-tag', (req, res) => {
 // 简单的Markdown转HTML函数
 function convertMarkdownToHtml(markdown) {
     let html = markdown
-        // 处理代码块
-        .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+        // 处理代码�?        .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
         // 处理行内代码
         .replace(/`([^`]+)`/g, '<code>$1</code>')
         // 处理标题
@@ -738,8 +715,7 @@ function convertMarkdownToHtml(markdown) {
     return html;
 }
 
-// 创建文章列表页面的函数
-function createArticleListPage(tagDir, tagName, backUrl) {
+// 创建文章列表页面的函�?function createArticleListPage(tagDir, tagName, backUrl) {
     const listHtml = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -765,10 +741,10 @@ function createArticleListPage(tagDir, tagName, backUrl) {
 </head>
 <body>
     <div class="container">
-        <a href="${backUrl}" class="back-btn">← 返回标签选择</a>
+        <a href="${backUrl}" class="back-btn">�?返回标签选择</a>
         <div class="header">
             <h1 class="tag-title">${tagName}</h1>
-            <p class="tag-description">用户创建的标签</p>
+            <p class="tag-description">用户创建的标�?/p>
         </div>
         <div id="articles-container" class="articles-list"></div>
     </div>
@@ -776,7 +752,7 @@ function createArticleListPage(tagDir, tagName, backUrl) {
     <script>
         async function loadArticles() {
             const container = document.getElementById('articles-container');
-            container.innerHTML = '<div class="loading">加载中...</div>';
+            container.innerHTML = '<div class="loading">加载�?..</div>';
             
             try {
                 const response = await fetch('metadata.json');
